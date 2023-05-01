@@ -1,3 +1,3 @@
 [submodule "backend-server"]
 	path = backend-server
-	url = ./backend-server/
+	url = https://github.com/SRH-flying-potatoes/backend-server-weather.git
