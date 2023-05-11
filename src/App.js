@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import LocationForm from "./components/weather/current/LocationForm";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
+import DisplayCurrentWeather from "./components/weather/current/DisplayCurrentWeather";
 
 function App() {
   const [airportData, setAirportData] = useState([]);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<LocationForm airportData={airportData} />} />
         {/* <Route path="/forecast" element={<Home lang={props.lang} />} /> */}
       </Routes>
+      {/* <DisplayCurrentWeather /> */}
     </div>
   );
 }

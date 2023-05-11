@@ -2,13 +2,15 @@ import { Form } from "semantic-ui-react";
 import React, { useState, useEffect } from "react";
 import SelectLocation from "./SelectAirport";
 import axios from "axios";
+import DisplayCurrentWeather from "./DisplayCurrentWeather";
 
 let airportOptions = [{ key: "NA", value: "NA", text: "Not available" }];
 
 const LocationForm = (props) => {
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
-  const [selectedAirport, setSelectedAirport] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [currWeather, setCurrWeather] = useState({ current: {}, location: {} });
 
   //on props update
   useEffect(() => {
@@ -27,13 +29,15 @@ const LocationForm = (props) => {
   const handleChange = (e, { name, value }) => {
     name === "lat" ? setLat(value) : setLong(value);
   };
+
   const getAirportValue = (val) => {
-    setSelectedAirport(val);
     const selectedAirportDetails = props.airportData.find(
       (item) => item.IATA === val
     );
-    setLat(selectedAirportDetails.Latitude);
-    setLong(selectedAirportDetails.Longitude);
+    if (selectedAirportDetails) {
+      setLat(selectedAirportDetails.Latitude);
+      setLong(selectedAirportDetails.Longitude);
+    }
   };
 
   const handleSubmit = () => {
@@ -44,7 +48,11 @@ const LocationForm = (props) => {
           long: long,
         },
       })
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        setCurrWeather(res.data);
+        console.log(res.data);
+      })
+      .then(() => setSubmitted(true))
       .catch((err) => {
         console.log(err);
       });
@@ -75,6 +83,9 @@ const LocationForm = (props) => {
           <Form.Button primary disabled={!(lat && long)} content="Submit" />
         </Form.Group>
       </Form>
+      {submitted && (
+        <DisplayCurrentWeather currWeather={currWeather} coords={[lat, long]} />
+      )}
     </div>
   );
 };
