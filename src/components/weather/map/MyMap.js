@@ -32,7 +32,7 @@ export default class MyMap extends Component {
   render() {
     const icon = new L.Icon({
       iconUrl: new URL(`https:${this.props.icon}`),
-      iconSize: [50, 56],
+      iconSize: [70, 76],
     });
 
     return (

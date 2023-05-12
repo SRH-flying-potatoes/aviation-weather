@@ -1,8 +1,9 @@
-import { Form } from "semantic-ui-react";
+import { Form, Label } from "semantic-ui-react";
 import React, { useState, useEffect } from "react";
 import SelectLocation from "./SelectAirport";
 import axios from "axios";
 import DisplayCurrentWeather from "./DisplayCurrentWeather";
+import "./LocationForm.css";
 
 let airportOptions = [{ key: "NA", value: "NA", text: "Not available" }];
 
@@ -24,6 +25,9 @@ const LocationForm = (props) => {
       });
       airportOptions = airp;
     }
+    return () => {
+      console.log("clean up Location form airport data");
+    };
   }, [props.airportData]);
 
   const handleChange = (e, { name, value }) => {
@@ -59,15 +63,14 @@ const LocationForm = (props) => {
   };
 
   return (
-    <div>
+    <div className="air-form">
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <SelectLocation
             airportOptions={airportOptions}
             sendVal={getAirportValue}
           />
-        </Form.Group>
-        <Form.Group>
+          <h4>OR</h4>
           <Form.Input
             placeholder="Latitude"
             name="lat"
