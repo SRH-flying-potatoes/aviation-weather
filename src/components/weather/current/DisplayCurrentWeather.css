@@ -7,6 +7,10 @@
   width: 50%;
   padding: 10px;
   display: flex;
+  flex-direction: column;
+}
+.air-location-info{
+  display: flex;
 }
 
 .leaflet-control { z-index: 0 !important}
