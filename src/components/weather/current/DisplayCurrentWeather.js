@@ -10,26 +10,32 @@ export default class DisplayCurrentWeather extends Component {
       weather: this.props.currWeather.current,
     };
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      location: nextProps.currWeather.location,
+      weather: nextProps.currWeather.current,
+    });
+  }
   render() {
+    const { name, region, country } = this.state.location;
     return (
       <div className="air-weather">
         <div className="air-weather-info">
           <div className="air-location-info">
-            <p>{`name`}</p>
-            <p>{`region`}</p>
-            <p>{`country`}</p>
+            <p>{`${name}, ${region}`}</p>
+            <p>{`|| Country: ${country}`}</p>
           </div>
           <h3>{this.state.weather.condition.text}</h3>
-          <p>{`last_updated`}</p>
-          <p>{`temp_c`}</p>
-          <p>{`wind_kph`}</p>
-          <p>{`wind_degree`}</p>
-          <p>{`wind_dir`}</p>
-          <p>{`pressure_mb`}</p>
-          <p>{`precip_mm`}</p>
-          <p>{`vis_km`}</p>
-          <p>{`humidity`}</p>
-          <p>{`gust_kph`}</p>
+          <p>{`Last updated: ${this.state.weather.last_updated}`}</p>
+          <p>{`Temperature(C): ${this.state.weather.temp_c}`}</p>
+          <p>{`Wind speed(kph): ${this.state.weather.wind_kph}`}</p>
+          <p>{`Wind degree: ${this.state.weather.wind_degree}`}</p>
+          <p>{`Wind Direction: ${this.state.weather.wind_dir}`}</p>
+          <p>{`Pressure(mb): ${this.state.weather.pressure_mb}`}</p>
+          <p>{`Precipitation(mm): ${this.state.weather.precip_mm}`}</p>
+          <p>{`Visibility(km): ${this.state.weather.vis_km}`}</p>
+          <p>{`Humidity: ${this.state.weather.humidity}`}</p>
+          <p>{`Gust(kph): ${this.state.weather.gust_kph}`}</p>
         </div>
         <div className="air-map-container">
           <MyMap
